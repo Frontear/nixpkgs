@@ -79,6 +79,8 @@
 , CoreServices
 , # nvim-treesitter dependencies
   callPackage
+, # Preview-nvim dependencies
+  md-tui
 , # sg.nvim dependencies
   darwin
 , # sved dependencies
@@ -1275,6 +1277,15 @@
     nvimRequireCheck = "plenary";
   };
 
+  Preview-nvim = super.Preview-nvim.overrideAttrs {
+    patches = [
+      (substituteAll {
+        src = ./patches/preview-nvim/hardcode-mdt-binary-path.patch;
+        mdt = lib.getExe md-tui;
+      })
+    ];
+  };
+
   range-highlight-nvim = super.range-highlight-nvim.overrideAttrs {
     dependencies = with self; [ cmd-parser-nvim ];
   };
@@ -1348,12 +1359,12 @@
 
   sniprun =
     let
-      version = "1.3.13";
+      version = "1.3.14";
       src = fetchFromGitHub {
         owner = "michaelb";
         repo = "sniprun";
         rev = "refs/tags/v${version}";
-        hash = "sha256-PQ3nAZ+bMbHHJWD7cV6h1b3g3TzrakA/N8vVumIooMg=";
+        hash = "sha256-9vglmQ9sy0aCbj4H81ublHclpoSfOA7ss5CNdoX54sY=";
       };
       sniprun-bin = rustPlatform.buildRustPackage {
         pname = "sniprun-bin";
@@ -1363,7 +1374,7 @@
           darwin.apple_sdk.frameworks.Security
         ];
 
-        cargoHash = "sha256-I8R2V9zoLqiM4lu0D7URoVof68wtKHI+8T8fVrUg7i4=";
+        cargoHash = "sha256-p4rZBgB3xQC14hRRTjNZT1G1gbaKydlKu6MYNSLk6iA=";
 
         nativeBuildInputs = [ makeWrapper ];
 
@@ -1385,6 +1396,12 @@
       '';
 
       propagatedBuildInputs = [ sniprun-bin ];
+
+      meta = {
+        homepage = "https://github.com/michaelb/sniprun/";
+        changelog = "https://github.com/michaelb/sniprun/releases/tag/v${version}";
+        maintainers = with lib.maintainers; [ GaetanLepage ];
+      };
     };
 
   # The GitHub repository returns 404, which breaks the update script

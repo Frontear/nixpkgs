@@ -141,6 +141,13 @@ with lib.maintainers;
     enableFeatureFreezePing = true;
   };
 
+  clevercloud = {
+    members = [ floriansanderscc ];
+    scope = "Maintain Clever Cloud related packages.";
+    shortName = "CleverCloud";
+    githubTeams = [ "CleverCloud" ];
+  };
+
   cloudposse = {
     members = [ dudymas ];
     scope = "Maintain atmos and applications made by the Cloud Posse team.";
@@ -708,10 +715,7 @@ with lib.maintainers;
   };
 
   node = {
-    members = [
-      lilyinstarlight
-      winter
-    ];
+    members = [ winter ];
     scope = "Maintain Node.js runtimes and build tooling.";
     shortName = "Node.js";
     enableFeatureFreezePing = true;
@@ -765,7 +769,6 @@ with lib.maintainers;
       aanderse
       drupol
       ma27
-      patka
       talyz
     ];
     githubTeams = [ "php" ];
