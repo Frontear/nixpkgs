@@ -8,6 +8,7 @@
 , nodePackages
 , python3
 , udev
+, cctools
 , darwin
 }:
 
@@ -18,16 +19,16 @@ let
   };
 in buildNpmPackage' rec {
   pname = "balena-cli";
-  version = "18.2.10";
+  version = "18.2.34";
 
   src = fetchFromGitHub {
     owner = "balena-io";
     repo = "balena-cli";
     rev = "v${version}";
-    hash = "sha256-HZAQpK7cai4FEBvQSIHGBdDMe4pQRXXF9DSax07rjF0=";
+    hash = "sha256-0ypcpbM0rNHbGW8GQb0HZwpc6xi6huzG1s11LkYTQR8=";
   };
 
-  npmDepsHash = "sha256-9XVjyqLgi+gkEEp09P4HzmeRNINeXUC4mBmib6M6YyE=";
+  npmDepsHash = "sha256-dzbtUAwGw+DCtZTScQr8NyPOlyFcIMSFtK8/Sww4TBo=";
 
   postPatch = ''
     ln -s npm-shrinkwrap.json package-lock.json
@@ -38,7 +39,7 @@ in buildNpmPackage' rec {
     nodePackages.node-gyp
     python3
   ] ++ lib.optionals stdenv.isDarwin [
-    darwin.cctools
+    cctools
   ];
 
   buildInputs = lib.optionals stdenv.isLinux [

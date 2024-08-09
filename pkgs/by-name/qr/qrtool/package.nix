@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "qrtool";
-  version = "0.10.10";
+  version = "0.11.4";
 
   src = fetchFromGitHub {
     owner = "sorairolake";
     repo = "qrtool";
     rev = "v${version}";
-    sha256 = "sha256-2gUvnQjAA0nTeJL4IbsfCmeSD+mGKjywJCCi914f5mM=";
+    sha256 = "sha256-lD/xi2k5baZGUUixy/032jTBevr0uQIT/JmX+d+kPyA=";
   };
 
-  cargoHash = "sha256-M5G5f+aycpIbFaPbkUNalMK3if1PIAXD7MaNsLzdvI4=";
+  cargoHash = "sha256-lR/LusIgdA+G7YeSLHjxdcC96tOSqSyalVamS42ORs0=";
 
   nativeBuildInputs = [ asciidoctor installShellFiles ];
 
@@ -25,6 +25,7 @@ rustPlatform.buildRustPackage rec {
     # Built by ./build.rs using `asciidoctor`
     installManPage ./target/*/release/build/qrtool*/out/*.?
 
+  '' + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd qrtool \
       --bash <($out/bin/qrtool --generate-completion bash) \
       --fish <($out/bin/qrtool --generate-completion fish) \

@@ -21,13 +21,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "shotcut";
-  version = "24.06.02";
+  version = "24.06.26";
 
   src = fetchFromGitHub {
     owner = "mltframework";
     repo = "shotcut";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-zqP3xGaNx6z3DdEyKZTauXGTY16dZPL/2+gKtgdx4Y8=";
+    hash = "sha256-9eQF3s4BAUK81/94z7cMkd2NWdNLVMraP08qsDmuAI8=";
   };
 
   nativeBuildInputs = [ pkg-config cmake wrapQtAppsHook ];
@@ -84,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://shotcut.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ goibhniu woffs peti ];
+    maintainers = with maintainers; [ woffs peti ];
     platforms = platforms.unix;
     mainProgram = "shotcut";
   };
